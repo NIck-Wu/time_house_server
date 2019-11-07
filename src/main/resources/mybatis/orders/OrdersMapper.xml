@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="OrdersMapper">
+
+    <!--查询结果列 -->
+    <sql id="selectOrdersCloumns">
+        id,
+        orderCode,
+        capsuleCode,
+        userID,
+        orderStatus,
+        payStatus,
+        orderAmount,
+        couponCode,
+        realPayAmount,
+        payFinishTime,
+        creatTime,
+        lastUpdate
+    </sql>
+
+    <!-- 新增-->
+    <insert id="save" parameterType="com.domain.dto.OrdersDto" useGeneratedKeys="true" keyProperty="id">
+        insert into orders(
+          id,
+          orderCode,
+          capsuleCode,
+          userID,
+          orderStatus,
+          payStatus,
+          orderAmount,
+          couponCode,
+          realPayAmount,
+          payFinishTime,
+          creatTime,
+          lastUpdate
+        ) values (
+          #{id},
+          #{orderCode},
+          #{capsuleCode},
+          #{userID},
+          #{orderStatus},
+          #{payStatus},
+          #{orderAmount},
+          #{couponCode},
+          #{realPayAmount},
+          #{payFinishTime},
+          #{creatTime},
+          #{lastUpdate}
+        )
+    </insert>
+
+    <!--根据主键删除-->
+    <delete id="deleteById" parameterType="com.domain.dto.OrdersDto">
+		delete from orders
+		where id = #{id}
+	</delete>
+
+    <!-- 修改 -->
+    <update id="editById" parameterType="com.domain.dto.OrdersDto">
+        update orders set
+        <if test="id !=null">
+            id = #{id},
+        </if>
+        <if test="orderCode !=null and orderCode != ''">
+            orderCode = #{orderCode},
+        </if>
+        <if test="capsuleCode !=null and capsuleCode != ''">
+            capsuleCode = #{capsuleCode},
+        </if>
+        <if test="userID !=null">
+            userID = #{userID},
+        </if>
+        <if test="orderStatus !=null and orderStatus != ''">
+            orderStatus = #{orderStatus},
+        </if>
+        <if test="payStatus !=null and payStatus != ''">
+            payStatus = #{payStatus},
+        </if>
+        <if test="orderAmount !=null and orderAmount != ''">
+            orderAmount = #{orderAmount},
+        </if>
+        <if test="couponCode !=null and couponCode != ''">
+            couponCode = #{couponCode},
+        </if>
+        <if test="realPayAmount !=null and realPayAmount != ''">
+            realPayAmount = #{realPayAmount},
+        </if>
+        <if test="payFinishTime !=null">
+            <![CDATA[payFinishTime = #{payFinishTime},]]>
+        </if>
+        <if test="creatTime !=null">
+            <![CDATA[creatTime = #{creatTime},]]>
+        </if>
+        <if test="lastUpdate !=null">
+            <![CDATA[lastUpdate = #{lastUpdate},]]>
+        </if>
+        id = #{id}
+
+        where id = #{id}
+    </update>
+
+    <!-- 通过ID获取数据 -->
+    <select id="findById" parameterType="com.domain.dto.OrdersDto" resultType="com.domain.dto.OrdersDto">
+        select
+        <include refid="selectOrdersCloumns" />
+        from  orders
+        where id = #{id}
+    </select>
+
+    <!-- 列表查询 -->
+    <select id="list" parameterType="com.domain.dto.OrdersDto" resultType="com.domain.dto.OrdersDto">
+        select
+        <include refid="selectOrdersCloumns" />
+        from  orders
+        <!--查询条件-->
+        where 1 = 1
+        <if test="id !=null">
+            and id = #{id}
+        </if>
+        <if test="orderCode !=null and orderCode != ''">
+            and orderCode = #{orderCode}
+        </if>
+        <if test="capsuleCode !=null and capsuleCode != ''">
+            and capsuleCode = #{capsuleCode}
+        </if>
+        <if test="userID !=null">
+            and userID = #{userID}
+        </if>
+        <if test="orderStatus !=null and orderStatus != ''">
+            and orderStatus = #{orderStatus}
+        </if>
+        <if test="payStatus !=null and payStatus != ''">
+            and payStatus = #{payStatus}
+        </if>
+        <if test="orderAmount !=null and orderAmount != ''">
+            and orderAmount = #{orderAmount}
+        </if>
+        <if test="couponCode !=null and couponCode != ''">
+            and couponCode = #{couponCode}
+        </if>
+        <if test="realPayAmount !=null and realPayAmount != ''">
+            and realPayAmount = #{realPayAmount}
+        </if>
+        <if test="payFinishTime !=null">
+            and <![CDATA[payFinishTime = #{payFinishTime}]]>
+        </if>
+        <if test="creatTime !=null">
+            and <![CDATA[creatTime = #{creatTime}]]>
+        </if>
+        <if test="lastUpdate !=null">
+            and <![CDATA[lastUpdate = #{lastUpdate}]]>
+        </if>
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="page" parameterType="com.domain.dto.OrdersDto" resultType="com.domain.dto.OrdersDto">
+        select
+        <include refid="selectOrdersCloumns" />
+        from  orders
+        <!--查询条件-->
+        where 1 = 1
+        <if test="id !=null">
+            and id = #{id}
+        </if>
+        <if test="orderCode !=null and orderCode != ''">
+            and orderCode = #{orderCode}
+        </if>
+        <if test="capsuleCode !=null and capsuleCode != ''">
+            and capsuleCode = #{capsuleCode}
+        </if>
+        <if test="userID !=null">
+            and userID = #{userID}
+        </if>
+        <if test="orderStatus !=null and orderStatus != ''">
+            and orderStatus = #{orderStatus}
+        </if>
+        <if test="payStatus !=null and payStatus != ''">
+            and payStatus = #{payStatus}
+        </if>
+        <if test="orderAmount !=null and orderAmount != ''">
+            and orderAmount = #{orderAmount}
+        </if>
+        <if test="couponCode !=null and couponCode != ''">
+            and couponCode = #{couponCode}
+        </if>
+        <if test="realPayAmount !=null and realPayAmount != ''">
+            and realPayAmount = #{realPayAmount}
+        </if>
+        <if test="payFinishTime !=null">
+            and <![CDATA[payFinishTime = #{payFinishTime}]]>
+        </if>
+        <if test="creatTime !=null">
+            and <![CDATA[creatTime = #{creatTime}]]>
+        </if>
+        <if test="lastUpdate !=null">
+            and <![CDATA[lastUpdate = #{lastUpdate}]]>
+        </if>
+    </select>
+</mapper>

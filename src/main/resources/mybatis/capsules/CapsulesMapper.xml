@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CapsulesMapper">
+
+    <!--查询结果列 -->
+    <sql id="selectCapsulesCloumns">
+        id,
+        capsuleCode,
+        userID,
+        capsuleTitle,
+        expireTime,
+        notes,
+        videoUrl,
+        capsuleStatus,
+        isShare,
+        creatTime,
+        lastUpdate
+    </sql>
+      <!--我的胶囊 查询结果列 -->
+    <sql id="pageQueryMyCapsulesCloumns">
+        id,
+        capsuleCode,
+        capsuleTitle,
+        expireTime,
+        videoUrl,
+        capsuleStatus,
+        creatTime
+    </sql>
+
+    <!-- 新增-->
+    <insert id="save" parameterType="com.domain.dto.CapsulesDto" useGeneratedKeys="true" keyProperty="id">
+        insert into capsules(
+          id,
+          capsuleCode,
+          userID,
+          capsuleTitle,
+          expireTime,
+          notes,
+          videoUrl,
+          capsuleStatus,
+          isShare,
+          creatTime,
+          lastUpdate
+        ) values (
+          #{id},
+          #{capsuleCode},
+          #{userID},
+          #{capsuleTitle},
+          #{expireTime},
+          #{notes},
+          #{videoUrl},
+          #{capsuleStatus},
+          #{isShare},
+          #{creatTime},
+          #{lastUpdate}
+        )
+    </insert>
+
+    <!--根据主键删除-->
+    <delete id="deleteById" parameterType="com.domain.dto.CapsulesDto">
+		delete from capsules
+		where id = #{id}
+	</delete>
+
+    <!-- 修改 -->
+    <update id="editById" parameterType="com.domain.dto.CapsulesDto">
+        update capsules set
+        <if test="id !=null">
+            id = #{id},
+        </if>
+        <if test="capsuleCode !=null and capsuleCode != ''">
+            capsuleCode = #{capsuleCode},
+        </if>
+        <if test="userID !=null">
+            userID = #{userID},
+        </if>
+        <if test="capsuleTitle !=null and capsuleTitle != ''">
+            capsuleTitle = #{capsuleTitle},
+        </if>
+        <if test="expireTime !=null">
+            <![CDATA[expireTime = #{expireTime},]]>
+        </if>
+        <if test="notes !=null and notes != ''">
+            notes = #{notes},
+        </if>
+        <if test="videoUrl !=null and videoUrl != ''">
+            videoUrl = #{videoUrl},
+        </if>
+        <if test="capsuleStatus !=null and capsuleStatus != ''">
+            capsuleStatus = #{capsuleStatus},
+        </if>
+        <if test="isShare !=null and isShare != ''">
+            isShare = #{isShare},
+        </if>
+        <if test="creatTime !=null">
+            <![CDATA[creatTime = #{creatTime},]]>
+        </if>
+        <if test="lastUpdate !=null">
+            <![CDATA[lastUpdate = #{lastUpdate},]]>
+        </if>
+        id = #{id}
+
+        where id = #{id}
+    </update>
+
+    <!-- 通过ID获取数据 -->
+    <select id="findById" parameterType="com.domain.dto.CapsulesDto" resultType="com.domain.dto.CapsulesDto">
+        select
+        <include refid="selectCapsulesCloumns" />
+        from  capsules
+        where id = #{id}
+    </select>
+
+    <!-- 列表查询 -->
+    <select id="list" parameterType="com.domain.dto.CapsulesDto" resultType="com.domain.dto.CapsulesDto">
+        select
+        <include refid="selectCapsulesCloumns" />
+        from  capsules
+        <!--查询条件-->
+        where 1 = 1
+        <if test="id !=null">
+            and id = #{id}
+        </if>
+        <if test="capsuleCode !=null and capsuleCode != ''">
+            and capsuleCode = #{capsuleCode}
+        </if>
+        <if test="userID !=null">
+            and userID = #{userID}
+        </if>
+        <if test="capsuleTitle !=null and capsuleTitle != ''">
+            and capsuleTitle = #{capsuleTitle}
+        </if>
+        <if test="expireTime !=null">
+            and <![CDATA[expireTime = #{expireTime}]]>
+        </if>
+        <if test="notes !=null and notes != ''">
+            and notes = #{notes}
+        </if>
+        <if test="videoUrl !=null and videoUrl != ''">
+            and videoUrl = #{videoUrl}
+        </if>
+        <if test="capsuleStatus !=null and capsuleStatus != ''">
+            and capsuleStatus = #{capsuleStatus}
+        </if>
+        <if test="isShare !=null and isShare != ''">
+            and isShare = #{isShare}
+        </if>
+        <if test="creatTime !=null">
+            and <![CDATA[creatTime = #{creatTime}]]>
+        </if>
+        <if test="lastUpdate !=null">
+            and <![CDATA[lastUpdate = #{lastUpdate}]]>
+        </if>
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="page" parameterType="com.domain.dto.CapsulesDto" resultType="com.domain.dto.CapsulesDto">
+        select
+        <include refid="selectCapsulesCloumns" />
+        from  capsules
+        <!--查询条件-->
+        where 1 = 1
+        <if test="id !=null">
+            and id = #{id}
+        </if>
+        <if test="capsuleCode !=null and capsuleCode != ''">
+            and capsuleCode = #{capsuleCode}
+        </if>
+        <if test="userID !=null">
+            and userID = #{userID}
+        </if>
+        <if test="capsuleTitle !=null and capsuleTitle != ''">
+            and capsuleTitle = #{capsuleTitle}
+        </if>
+        <if test="expireTime !=null">
+            and <![CDATA[expireTime = #{expireTime}]]>
+        </if>
+        <if test="notes !=null and notes != ''">
+            and notes = #{notes}
+        </if>
+        <if test="videoUrl !=null and videoUrl != ''">
+            and videoUrl = #{videoUrl}
+        </if>
+        <if test="capsuleStatus !=null and capsuleStatus != ''">
+            and capsuleStatus = #{capsuleStatus}
+        </if>
+        <if test="isShare !=null and isShare != ''">
+            and isShare = #{isShare}
+        </if>
+        <if test="creatTime !=null">
+            and <![CDATA[creatTime = #{creatTime}]]>
+        </if>
+        <if test="lastUpdate !=null">
+            and <![CDATA[lastUpdate = #{lastUpdate}]]>
+        </if>
+    </select>
+    
+     <!-- 分页查询我的胶囊列表 -->
+    <select id="pageQueryMyCapsules" parameterType="com.domain.dto.CapsulesDto" resultType="com.domain.dto.CapsulesDto">
+        select
+        <include refid="pageQueryMyCapsulesCloumns" />
+        from  capsules where userID = #{userID} order by creatTime desc
+    </select>
+    
+    
+</mapper>

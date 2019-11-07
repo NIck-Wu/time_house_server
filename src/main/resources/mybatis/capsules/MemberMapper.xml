@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MemberMapper">
+
+    <!--查询结果列 -->
+    <sql id="selectMemberCloumns">
+        id,
+        capsuleCode,
+        orderCode,
+        userID,
+        userHeadImg,
+        memberStatus,
+        creatTime,
+        lastUpdate
+    </sql>
+
+    <!-- 新增-->
+    <insert id="save" parameterType="com.domain.dto.MemberDto" useGeneratedKeys="true" keyProperty="id">
+        insert into member(
+          id,
+          capsuleCode,
+          orderCode,
+          userID,
+          userHeadImg,
+          memberStatus,
+          creatTime,
+          lastUpdate
+        ) values (
+          #{id},
+          #{capsuleCode},
+          #{orderCode},
+          #{userID},
+          #{userHeadImg},
+          #{memberStatus},
+          #{creatTime},
+          #{lastUpdate}
+        )
+    </insert>
+
+    <!--根据主键删除-->
+    <delete id="deleteById" parameterType="com.domain.dto.MemberDto">
+		delete from member
+		where id = #{id}
+	</delete>
+
+    <!-- 修改 -->
+    <update id="editById" parameterType="com.domain.dto.MemberDto">
+        update member set
+        <if test="id !=null">
+            id = #{id},
+        </if>
+        <if test="capsuleCode !=null and capsuleCode != ''">
+            capsuleCode = #{capsuleCode},
+        </if>
+        <if test="orderCode !=null and orderCode != ''">
+            orderCode = #{orderCode},
+        </if>
+        <if test="userID !=null">
+            userID = #{userID},
+        </if>
+        <if test="userHeadImg !=null and userHeadImg != ''">
+            userHeadImg = #{userHeadImg},
+        </if>
+        <if test="memberStatus !=null and memberStatus != ''">
+            memberStatus = #{memberStatus},
+        </if>
+        <if test="creatTime !=null">
+            <![CDATA[creatTime = #{creatTime},]]>
+        </if>
+        <if test="lastUpdate !=null">
+            <![CDATA[lastUpdate = #{lastUpdate},]]>
+        </if>
+        id = #{id}
+
+        where id = #{id}
+    </update>
+
+    <!-- 通过ID获取数据 -->
+    <select id="findById" parameterType="com.domain.dto.MemberDto" resultType="com.domain.dto.MemberDto">
+        select
+        <include refid="selectMemberCloumns" />
+        from  member
+        where id = #{id}
+    </select>
+
+    <!-- 列表查询 -->
+    <select id="list" parameterType="com.domain.dto.MemberDto" resultType="com.domain.dto.MemberDto">
+        select
+        <include refid="selectMemberCloumns" />
+        from  member
+        <!--查询条件-->
+        where 1 = 1
+        <if test="id !=null">
+            and id = #{id}
+        </if>
+        <if test="capsuleCode !=null and capsuleCode != ''">
+            and capsuleCode = #{capsuleCode}
+        </if>
+        <if test="orderCode !=null and orderCode != ''">
+            and orderCode = #{orderCode}
+        </if>
+        <if test="userID !=null">
+            and userID = #{userID}
+        </if>
+        <if test="userHeadImg !=null and userHeadImg != ''">
+            and userHeadImg = #{userHeadImg}
+        </if>
+        <if test="memberStatus !=null and memberStatus != ''">
+            and memberStatus = #{memberStatus}
+        </if>
+        <if test="creatTime !=null">
+            and <![CDATA[creatTime = #{creatTime}]]>
+        </if>
+        <if test="lastUpdate !=null">
+            and <![CDATA[lastUpdate = #{lastUpdate}]]>
+        </if>
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="page" parameterType="com.domain.dto.MemberDto" resultType="com.domain.dto.MemberDto">
+        select
+        <include refid="selectMemberCloumns" />
+        from  member
+        <!--查询条件-->
+        where 1 = 1
+        <if test="id !=null">
+            and id = #{id}
+        </if>
+        <if test="capsuleCode !=null and capsuleCode != ''">
+            and capsuleCode = #{capsuleCode}
+        </if>
+        <if test="orderCode !=null and orderCode != ''">
+            and orderCode = #{orderCode}
+        </if>
+        <if test="userID !=null">
+            and userID = #{userID}
+        </if>
+        <if test="userHeadImg !=null and userHeadImg != ''">
+            and userHeadImg = #{userHeadImg}
+        </if>
+        <if test="memberStatus !=null and memberStatus != ''">
+            and memberStatus = #{memberStatus}
+        </if>
+        <if test="creatTime !=null">
+            and <![CDATA[creatTime = #{creatTime}]]>
+        </if>
+        <if test="lastUpdate !=null">
+            and <![CDATA[lastUpdate = #{lastUpdate}]]>
+        </if>
+    </select>
+</mapper>
